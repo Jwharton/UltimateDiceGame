@@ -11,17 +11,14 @@ rollBttn.addEventListener("click", playGame);
 
 /* Randomly generate the dice number for player 1 and player 2.  Determine the winner.*/
 function playGame() {
-  const p1dotsObj = document.querySelectorAll(".p1dots");
-  const p2DotsObj = document.querySelectorAll(".p2dots");
+  const p1DieObj = document.querySelector("#player1Dice");
+  const p2DieObj = document.querySelector("#player2Dice");
 
   let diceStyleMap = createDiceStyleMap();
 
-  //Ensure all dots are visibile so when the dice is rolled, only the correct dots become hidden
-  resetDice(p1dotsObj);
-  let p1Num = rollDice(p1dotsObj, diceStyleMap);
+  let p1Num = rollDice(p1DieObj, diceStyleMap);
 
-  resetDice(p2DotsObj);
-  let p2Num = rollDice(p2DotsObj, diceStyleMap);
+  let p2Num = rollDice(p2DieObj, diceStyleMap);
 
   let isPlayerWinner = checkIsPlayer1Winner(p1Num, p2Num);
   isPlayerWinner == 1
@@ -31,25 +28,14 @@ function playGame() {
     : (infoMsgObj.textContent = "Player 2 Wins!");
 }
 
-/*Randomly determines the die number and hides the approprate dots so that number is displayed on the die.
-    Each dot element on the die element have an String id that ends in the index position the dot has on the die. Using the 
-    diceStyleMap, which has the die number as the key and an object containing the visibility style and dot positions to hide 
-    as the value, find the map value using the random die number as the key.  Then determine if the String id from the dot 
-    element ends with the number contained in the map value list.  If so, then hide that dot element.*/ 
+/*Randomly determines the die number and chooses the correct html die representation. Using the 
+    diceStyleMap, which has the die number as the key and an html entity as the value, find the map value 
+    using the random die number as the key.*/ 
  function rollDice(diceObj, diceStyleMap) {
   let randomDiceNum = rollNum();
-  let dotsToHide = diceStyleMap.get(randomDiceNum).dots;
-  let visibility = diceStyleMap.get(randomDiceNum).visibility;
+  
+  diceObj.innerHTML = diceStyleMap.get(randomDiceNum);
 
-   
-  for (let i = 0; i < diceObj.length; i++) {
-    let dotID = diceObj[i].id;
-    for (let index in dotsToHide) {
-      if (dotID.endsWith(dotsToHide[index])) {
-        diceObj[i].style.visibility = visibility;
-      }
-    }
-  }
   return randomDiceNum;
 }
 
@@ -58,36 +44,14 @@ function playGame() {
 function createDiceStyleMap() {
   let diceStyleMap = new Map();
 
-  diceStyleMap.set(1, {
-    visibility: "hidden",
-    dots: ["One", "Two", "Three", "Four", "Six", "Seven", "Eight", "Nine"],
-  });
-  diceStyleMap.set(2, {
-    visibility: "hidden",
-    dots: ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight"],
-  });
-  diceStyleMap.set(3, {
-    visibility: "hidden",
-    dots: ["Two", "Three", "Four", "Six", "Seven", "Eight"],
-  });
-  diceStyleMap.set(4, {
-    visibility: "hidden",
-    dots: ["Two", "Four", "Five", "Six", "Eight"],
-  });
-  diceStyleMap.set(5, {
-    visibility: "hidden",
-    dots: ["Two", "Four", "Six", "Eight"],
-  });
-  diceStyleMap.set(6, { visibility: "hidden", dots: ["Two", "Five", "Eight"] });
+  diceStyleMap.set(1,  "&#9856;");
+  diceStyleMap.set(2, "&#9857;");
+  diceStyleMap.set(3,"&#9858;");
+  diceStyleMap.set(4, "&#9859;");
+  diceStyleMap.set(5, "&#9860;");
+  diceStyleMap.set(6, "&#9861;");
 
   return diceStyleMap;
-}
-
-//Resets the die so that all dots are visible
-function resetDice(diceObj) {
-  for (let i = 0; i < diceObj.length; i++) {
-    diceObj[i].style.visibility = "visible";
-  }
 }
 
 //Returns a random number between 1 and 6

@@ -2,7 +2,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -80%);
+    transform: translate(-50%, -40%);
 }
 
 #player1Area,#player2Area {
@@ -12,12 +12,6 @@
     border: 1px solid black;
     text-align: center;
 }
-#player1Dice,#player2Dice{
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
-    margin: 15px 50px;
-}
 
 #rollBttn {
     display: block;
@@ -25,17 +19,12 @@
     margin: 10px 0px;
 }
 
-.p1dots, .p2dots {
+#player1Dice,#player2Dice {
     display: inline-block;
-    margin:4px 5px;
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    background-color: black;
-}
-
-.p1dots#p1Two,.p1dots#p1Five,.p1dots#p1Eight,.p2dots#p2Two,.p2dots#p2Five,.p2dots#p2Eight {
-    visibility: hidden;
+    position: absolute;
+    font-size: 100px;
+ 
+    transform: translate(-50%, -30%);
 }
 
 .ptitle{
